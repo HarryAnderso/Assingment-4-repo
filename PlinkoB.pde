@@ -11,3 +11,8 @@ void draw(){
  Board.drawboard();
  Ball.drawball();
 }
+
+void keyPressed()
+{
+ Ball.dropball(); 
+}
