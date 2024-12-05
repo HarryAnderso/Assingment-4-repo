@@ -7,7 +7,7 @@ class ball{
   ball(){
     location=new PVector(int(random(40,360)),60);
     velocity=new PVector(0,2);
-    acceleration=new PVector(1,1);
+    acceleration=new PVector(0,.3);
   }
   void drawball(){
     noStroke();
@@ -25,8 +25,8 @@ class ball{
        ellipse(location.x,location.y,20,20); 
        location.x=location.x+velocity.x;
        location.y=location.y+velocity.y;
-       velocity.x=velocity.x*acceleration.x;
-       velocity.y=velocity.y*acceleration.y;
+       velocity.x=velocity.x+acceleration.x;
+       velocity.y=velocity.y+acceleration.y;
        //print("you really dropped the ball888888888888");
        if((location.x+20)>400 || (location.x-20)<0){
          velocity.x=velocity.x*-1;
@@ -37,11 +37,46 @@ class ball{
           //print(Board.pegY[o]+" & ");
           //print((location.y+20)+"   ");
           //check here for collision
-          if(((location.x+20)>Board.pegX[i] && Board.pegX[i]>(location.x-20)) && (location.y+20)>Board.pegY[o] && Board.pegY[o]>(location.y-20)){
-            print("AHHHH KILL EVERYONE");
-            //(location.y+20)>Board.pegY[o] && Board.pegY[o]>(location.y-20)
+          if(((location.y+18)>Board.pegY[o] && Board.pegY[o]>(location.y-18))){//checks vertical location
+            if((location.x+18)>Board.pegX[i] && Board.pegX[i]>(location.x-18) && (o%2==0 || o==0)){//checks horizontal location
+            
+              if((location.x>Board.pegX[i]) && (o%2==0 || o==0)){//checks if its in a even/zero array row
+              velocity.x=2;
+              }
+              
+              else if((location.x<=Board.pegX[i]) && (o%2==0 || o==0)){
+                velocity.x=-2; 
+              }
+              
+            
+            
+              if(location.y<Board.pegY[0]){
+              velocity.y=-(velocity.y);
+              }
+              else{}
+          }
+          else if((location.x+18)>(Board.pegX[i]+30) && (Board.pegX[i]+30)>(location.x-18) && (o%2 != 0)){
+   
+             if((location.x>Board.pegX[i]) && (o%2!=0)){
+              velocity.x=2;
+            }
+            else if((location.x<=Board.pegX[i]) && (o%2!=0)){
+                velocity.x=-2;
+              }
+              
+              if(location.y<Board.pegY[0]){
+              velocity.y=-(velocity.y);
+              }
+              else{}
+            
+          }
+          else{
+          }
           }
         }
+       }
+       if(location.y>400){
+         //falling=false;
        }
     }
     else{
